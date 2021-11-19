@@ -6,6 +6,8 @@
     display:flex;
     flex-direction: column;
     justify-content:center;
+    min-height:100px;
+    width: 400px;
 }
 
 .order-item-desc {
@@ -17,4 +19,5 @@
     height:200px;
     object-fit:cover;
     margin-bottom: 5px;
+    
 }
