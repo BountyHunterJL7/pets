@@ -1,5 +1,8 @@
 import {useState} from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
+
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 
 import './styles.css'
 
@@ -7,14 +10,37 @@ export const LoginPage = () => {
 
     const [mode, setMode] = useState("login");
 
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit } = useForm();
 
-    const loginUser = (formVals) => {
+    const history = useHistory();
 
+    const loginUser = async(formVals) => {
+
+        try { 
+            const auth = getAuth();
+                
+            const loginUser = await signInWithEmailAndPassword(auth, formVals.user, formVals.password);
+            console.log(auth);
+            history.push('/');
+        }catch (error) {
+            console.log("error connecting to firebase", error)
+        }
     }
 
-    const signUpUser = (formVals) => {
+    
 
+    const signUpUser = async (formVals) => {
+        
+
+        try {
+            const auth = getAuth();
+            
+            const signupUser = await createUserWithEmailAndPassword(auth, formVals.user, formVals.password);
+            history.push('/');
+        } catch (error) {
+            // hanndle correct passworkd
+            console.log("ERROR from firebase", error)
+        }
     }
 
     return (
@@ -28,7 +54,7 @@ export const LoginPage = () => {
                     <label htmlFor="user">Username</label>
                     <input type="email" name="user" required {...register('user')}></input>
 
-                    <labe htmlFor="password">Password</labe>
+                    <label htmlFor="password">Password</label>
                     <input type="password" name="password" required {...register('password')}></input>
 
                     <input type="submit" value="Login"></input>
