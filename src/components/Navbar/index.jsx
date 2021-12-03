@@ -15,6 +15,9 @@ export const Navbar = () => {
                     <NavLink exact={true} activeClassName="nav-selected" to="/">Pets</NavLink>
                 </li>
                 <li>
+                    <NavLink activeClassName="nav-selected" to="/new"> New Pet</NavLink>
+                </li>
+                <li>
                     <NavLink activeClassName="nav-selected" to="/cart"> My Cart</NavLink>
                 </li>
                 <li>
